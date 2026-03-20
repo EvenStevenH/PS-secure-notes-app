@@ -11,9 +11,8 @@ router.use(authMiddleware);
 // GET /api/notes - Get ALL notes for the logged-in user
 router.get("/", async (req, res) => {
 	try {
-		// Note.find({}) > finds all notes in the database
-		// Note.find({ user: req.user._id }) > find only notes owned by the logged-in user
-		const notes = await Note.find({ user: req.user._id });
+		// const notes = await Note.find({}).populate('user'); // all docs/notes > each note, replace user field with user's full details
+		const notes = await Note.find({ user: req.user._id }); // find/show just notes owned by the logged-in user
 		res.json(notes);
 	} catch (err) {
 		res.status(500).json(err);
